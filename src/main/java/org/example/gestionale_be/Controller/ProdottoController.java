@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api")
 @Data
 public class ProdottoController {
 
@@ -28,7 +28,7 @@ public class ProdottoController {
         return prodottoService.getProdotti();
     }
 
-    @PostMapping()
+    @PostMapping("/inserisci-modifica/prodotto")
     public ProdottoDto inserisciProdotto(@RequestBody ProdottoDto prodottoDto) throws BadRequestException {
         if(prodottoDto.getId()!=null)
             throw new BadRequestException("Non puoi inserire questo prodotto, id PRESENTE");

@@ -1,6 +1,9 @@
 package org.example.gestionale_be.Dto;
 
+import jakarta.persistence.Column;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 
 @Data
@@ -14,4 +17,6 @@ public class ProdottoDto {
     private Float prezzoListino;
     private Long quantitativo;
     private String urlImmagine;
+    private LocalDate dataCreazione;
+    private LocalDate dataModifica;
 }

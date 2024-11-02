@@ -8,6 +8,7 @@ import org.example.gestionale_be.Mapper.ProdottoMapper;
 import org.example.gestionale_be.Repository.ProdottoRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,12 +32,15 @@ public class ProdottoService {
     }
 
     public ProdottoDto inserisciProdotto(ProdottoDto prodottoDto) {
-        if(!prodottoRepository.existsByCodiceProdotto(prodottoDto.getCodiceProdotto()))
-        return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
+        if(!prodottoRepository.existsByCodiceProdotto(prodottoDto.getCodiceProdotto())) {
+            prodottoDto.setDataCreazione(LocalDate.now());
+            return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
+        }
         else {
             Prodotto prodotto = prodottoRepository.findByCodiceProdotto(prodottoDto.getCodiceProdotto());
             prodottoDto.setId(prodotto.getId());
             prodottoDto.setQuantitativo(prodottoDto.getQuantitativo() + prodotto.getQuantitativo());
+            prodottoDto.setDataModifica(LocalDate.now());
             return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
         }
     }

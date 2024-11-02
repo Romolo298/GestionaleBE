@@ -20,4 +20,11 @@
             <column name="url_immagine" type="varchar"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="021120241559" author="Bellapianta.a">
+        <addColumn tableName="prodotti">
+            <column name ="data_creazione" type="Date"/>
+            <column name ="data_modifica" type="Date"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

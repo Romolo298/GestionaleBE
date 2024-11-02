@@ -3,6 +3,8 @@ package org.example.gestionale_be.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Entity(name = "prodotti")
 @Data
 public class Prodotto {
@@ -25,5 +27,10 @@ public class Prodotto {
     private Long quantitativo;
 
     private String urlImmagine;
+
+    @Column(name = "data_creazione")
+    private LocalDate dataCreazione;
+    @Column(name = "data_modifica")
+    private LocalDate dataModifica;
 
 }
