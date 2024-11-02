@@ -38,7 +38,7 @@ public class ProdottoController {
     @PutMapping()
     public ProdottoDto modificaProdotto(@RequestBody ProdottoDto prodottoDto) throws BadRequestException {
         if(prodottoDto.getId()==null)
-            throw new BadRequestException("Non puoi inserire questo prodotto, id PRESENTE");
+            throw new BadRequestException("Non puoi inserire questo prodotto, id non PRESENTE");
         return prodottoService.modificaProdotto(prodottoDto);
     }
 
