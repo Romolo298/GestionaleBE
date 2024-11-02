@@ -42,5 +42,10 @@ public class ProdottoController {
         return prodottoService.modificaProdotto(prodottoDto);
     }
 
+    @DeleteMapping("/elimina-prodotto/{id}")
+    public String eliminaProdotto(@PathVariable("id") Long id){
+        return prodottoService.eliminaProdotto(id);
+    }
+
 
 }

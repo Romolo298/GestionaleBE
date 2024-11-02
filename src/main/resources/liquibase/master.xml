@@ -8,4 +8,5 @@
 
     <include file="liquibase/tabelle/Sequence.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/tabelle/Prodotto.xml" relativeToChangelogFile="false"/>
+    <include file="liquibase/tabelle/Fornitore.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

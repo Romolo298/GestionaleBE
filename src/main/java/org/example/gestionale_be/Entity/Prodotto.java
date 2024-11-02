@@ -30,6 +30,7 @@ public class Prodotto {
 
     @Column(name = "data_creazione")
     private LocalDate dataCreazione;
+
     @Column(name = "data_modifica")
     private LocalDate dataModifica;
 

@@ -1,6 +1,7 @@
 package org.example.gestionale_be.Service;
 
 import lombok.Data;
+import org.apache.coyote.BadRequestException;
 import org.example.gestionale_be.Dto.ProdottoDto;
 import org.example.gestionale_be.Eccezioni.NotFoundException;
 import org.example.gestionale_be.Entity.Prodotto;
@@ -52,5 +53,13 @@ public class ProdottoService {
         else
             throw new NotFoundException("Prodotto non trovato");
 
+    }
+
+    public String eliminaProdotto(Long id) {
+        if(prodottoRepository.existsById(id)) {
+            prodottoRepository.deleteById(id);
+            return "Prodotto eliminato";
+        }
+        return  "Nessun prodotto eliminato in quanto non presente";
     }
 }
