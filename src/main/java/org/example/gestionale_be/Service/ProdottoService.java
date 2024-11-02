@@ -3,6 +3,7 @@ package org.example.gestionale_be.Service;
 import lombok.Data;
 import org.example.gestionale_be.Dto.ProdottoDto;
 import org.example.gestionale_be.Eccezioni.NotFoundException;
+import org.example.gestionale_be.Entity.Prodotto;
 import org.example.gestionale_be.Mapper.ProdottoMapper;
 import org.example.gestionale_be.Repository.ProdottoRepository;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,14 @@ public class ProdottoService {
     }
 
     public ProdottoDto inserisciProdotto(ProdottoDto prodottoDto) {
+        if(!prodottoRepository.existsByCodiceProdotto(prodottoDto.getCodiceProdotto()))
         return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
+        else {
+            Prodotto prodotto = prodottoRepository.findByCodiceProdotto(prodottoDto.getCodiceProdotto());
+            prodottoDto.setId(prodotto.getId());
+            prodottoDto.setQuantitativo(prodottoDto.getQuantitativo() + prodotto.getQuantitativo());
+            return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
+        }
     }
 
     public ProdottoDto modificaProdotto(ProdottoDto prodottoDto) {

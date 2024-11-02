@@ -7,4 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
 
+    Boolean existsByCodiceProdotto(String codiceProdotto);
+
+    Prodotto findByCodiceProdotto(String codiceProdotto);
+
 }
