@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="011120242355" author="Bellapianta.a">
+        <createTable tableName="prodotti">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nome" type="varchar"/>
+            <column name="tipologia" type="varchar"/>
+            <column name="codice_prodotto" type="varchar"/>
+            <column name="prezzo" type="float"/>
+            <column name="prezzo_listino" type="float"/>
+            <column name="quantitativo" type="bigint"/>
+            <column name="url_immagine" type="varchar"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
