@@ -6,8 +6,10 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
 
-    <include file="liquibase/tabelle/Sequence.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/tabelle/Prodotto.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/tabelle/Fornitore.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/tabelle/ChiaviEsterne.xml" relativeToChangelogFile="false"/>
+    <changeSet id="041120241600" author="Bellapianta.a">
+        <addForeignKeyConstraint baseTableName="prodotti" baseColumnNames="id_fornitore" constraintName="fk_id_fornitore_id" referencedTableName="fornitori"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+
 </databaseChangeLog>

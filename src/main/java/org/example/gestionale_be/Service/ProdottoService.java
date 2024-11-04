@@ -1,5 +1,7 @@
 package org.example.gestionale_be.Service;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.apache.coyote.BadRequestException;
 import org.example.gestionale_be.Dto.ProdottoDto;
@@ -21,6 +23,8 @@ public class ProdottoService {
 
     private final ProdottoMapper prodottoMapper;
 
+    private final FornitoreService fornitoreService;
+
     public ProdottoDto getProdotto(Long id) {
         return prodottoRepository.findById(id)
                 .map(prodottoMapper::entityToDto)
@@ -32,16 +36,26 @@ public class ProdottoService {
         return prodottoRepository.findAll().stream().map(prodottoMapper::entityToDto).collect(Collectors.toList());
     }
 
-    public ProdottoDto inserisciProdotto(ProdottoDto prodottoDto) {
+    @Transactional
+    public ProdottoDto inserisciProdotto(ProdottoDto prodottoDto) throws NumberParseException, BadRequestException {
         if(!prodottoRepository.existsByCodiceProdotto(prodottoDto.getCodiceProdotto())) {
             prodottoDto.setDataCreazione(LocalDate.now());
+
+           if (prodottoDto.getFornitoreDto()!=null)
+                inserimentoModificaFornitore(prodottoDto);
+
             return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
         }
         else {
             Prodotto prodotto = prodottoRepository.findByCodiceProdotto(prodottoDto.getCodiceProdotto());
             prodottoDto.setId(prodotto.getId());
             prodottoDto.setQuantitativo(prodottoDto.getQuantitativo() + prodotto.getQuantitativo());
+            prodottoDto.setDataCreazione(prodotto.getDataCreazione());
             prodottoDto.setDataModifica(LocalDate.now());
+
+            if(prodottoDto.getFornitoreDto()!=null)
+                inserimentoModificaFornitore(prodottoDto);
+
             return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
         }
     }
@@ -61,5 +75,9 @@ public class ProdottoService {
             return "Prodotto eliminato";
         }
         return  "Nessun prodotto eliminato in quanto non presente";
+    }
+
+    private void inserimentoModificaFornitore(ProdottoDto prodottoDto) throws NumberParseException, BadRequestException {
+        prodottoDto.setFornitoreDto(fornitoreService.inserisciModificaFornitore(prodottoDto.getFornitoreDto()));
     }
 }

@@ -29,18 +29,10 @@ public class FornitoreController {
         return fornitoreService.getFornitori();
     }
 
-    @PostMapping("/fornitore")
-    public FornitoreDto inserisciProdotto(@RequestBody FornitoreDto fornitoreDto) throws BadRequestException, NumberParseException {
-        if(fornitoreDto.getId()!=null)
-            throw new BadRequestException("Non puoi inserire un fornitore con un id PRESENTE");
-        return fornitoreService.inserisciFornitore(fornitoreDto);
-    }
 
-    @PutMapping("/fornitore")
-    public FornitoreDto modificaFornitore(@RequestBody FornitoreDto fornitoreDto) throws BadRequestException {
-        if(fornitoreDto.getId()==null)
-            throw new BadRequestException("Non puoi modificare un fornitore senza un id PRESENTE");
-        return fornitoreService.modificaFornitore(fornitoreDto);
+    @PostMapping("/fornitore")
+    public FornitoreDto modificaInserisciFornitore(@RequestBody FornitoreDto fornitoreDto) throws BadRequestException, NumberParseException {
+        return fornitoreService.inserisciModificaFornitore(fornitoreDto);
     }
 
     @DeleteMapping("/elimina-fornitore/{id}")

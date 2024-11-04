@@ -3,6 +3,8 @@ package org.example.gestionale_be.Dto;
 import jakarta.persistence.Column;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 
@@ -12,6 +14,7 @@ public class ProdottoDto {
     private Long id;
     private String nome;
     private String tipologia;
+    @NotBlank
     private String codiceProdotto;
     private Float prezzo;
     private Float prezzoListino;
@@ -19,4 +22,5 @@ public class ProdottoDto {
     private String urlImmagine;
     private LocalDate dataCreazione;
     private LocalDate dataModifica;
+    private FornitoreDto fornitoreDto;
 }

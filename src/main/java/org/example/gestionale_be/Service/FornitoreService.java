@@ -35,26 +35,31 @@ public class FornitoreService {
         return fornitoreRepository.findAll().stream().map(fornitoreMapper::entityToDto).collect(Collectors.toList());
     }
 
-    public FornitoreDto inserisciFornitore(FornitoreDto fornitoreDto) throws NumberParseException, BadRequestException {
-        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-        PhoneNumber phoneNumber = phoneUtil.parse(fornitoreDto.getNumeroTelefono(), "IT");
-        if (phoneUtil.isValidNumber(phoneNumber)) {
-                if(!fornitoreRepository.existsByRagioneSociale(fornitoreDto.getRagioneSociale()))
-                    return fornitoreMapper.entityToDto(fornitoreRepository.save(fornitoreMapper.dtoToEntity(fornitoreDto)));
-                else
-                    throw new BadRequestException("Fornitore già censito");
-        } else {
+    private FornitoreDto inserisciFornitore(FornitoreDto fornitoreDto) throws NumberParseException, BadRequestException {
+
+        if (fornitoreRepository.existsByRagioneSociale(fornitoreDto.getRagioneSociale())) {
+            throw new BadRequestException("Fornitore già censito");
+        }
+
+        if (fornitoreDto.getNumeroTelefono() != null && !controlloNumeroTelefono(fornitoreDto.getNumeroTelefono())) {
             throw new IllegalArgumentException("Numero di telefono non formattato correttamente");
         }
+
+        return fornitoreMapper.entityToDto(fornitoreRepository.save(fornitoreMapper.dtoToEntity(fornitoreDto)));
+    }
+
+    private boolean controlloNumeroTelefono(String numeroTelefono) throws NumberParseException {
+        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+        PhoneNumber phoneNumber = phoneUtil.parse(numeroTelefono, "IT");
+        return phoneUtil.isValidNumber(phoneNumber);
     }
 
 
-    public FornitoreDto modificaFornitore(FornitoreDto fornitoreDto)
-    {
-        if(fornitoreRepository.existsById(fornitoreDto.getId()))
+    public FornitoreDto inserisciModificaFornitore(FornitoreDto fornitoreDto) throws NumberParseException, BadRequestException {
+        if(fornitoreDto.getId()!= null && fornitoreRepository.existsById(fornitoreDto.getId()))
             return fornitoreMapper.entityToDto(fornitoreRepository.save(fornitoreMapper.dtoToEntity(fornitoreDto)));
         else
-            throw new NotFoundException("Fornitore non trovato");
+            return inserisciFornitore(fornitoreDto);
     }
 
     public String eliminaFornitore(Long id) {

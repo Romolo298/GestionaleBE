@@ -27,4 +27,15 @@
             <column name ="data_modifica" type="Date"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="041120241555" author="Bellapianta.a">
+        <addNotNullConstraint tableName="prodotti" columnName="codice_prodotto"/>
+    </changeSet>
+
+    <changeSet id="041120241600" author="Bellapianta.a">
+        <addColumn tableName="prodotti">
+            <column name="id_fornitore" type="bigint"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
