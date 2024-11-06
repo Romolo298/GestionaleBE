@@ -13,8 +13,7 @@ import java.util.List;
 @RestController
 @Data
 @RequestMapping("/api")
-public class ProdottoStoricoController
-{
+public class ProdottoStoricoController {
     private final ProdottoStoricoService prodottoStoricoService;
 
     @GetMapping("/prodotto-storico/{codiceProdotto}")

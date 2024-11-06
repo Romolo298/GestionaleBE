@@ -19,6 +19,7 @@ import java.util.List;
 public class ProdottoController {
 
     private final ProdottoService prodottoService;
+
     @GetMapping("/{id}")
     public ProdottoDto recuperaProdotto(@PathVariable("id") Long id) {
         return prodottoService.getProdotto(id);
@@ -31,20 +32,20 @@ public class ProdottoController {
 
     @PostMapping("/inserisci-modifica")
     public ProdottoDto inserisciProdotto(@Valid @RequestBody ProdottoDto prodottoDto) throws BadRequestException, NumberParseException {
-        if(prodottoDto.getId()!=null)
+        if (prodottoDto.getId() != null)
             throw new BadRequestException("Non puoi inserire questo prodotto, id PRESENTE");
         return prodottoService.inserisciProdotto(prodottoDto);
     }
 
     @PutMapping()
     public ProdottoDto modificaProdotto(@RequestBody ProdottoDto prodottoDto) throws BadRequestException {
-        if(prodottoDto.getId()==null)
+        if (prodottoDto.getId() == null)
             throw new BadRequestException("Non puoi inserire questo prodotto, id non PRESENTE");
         return prodottoService.modificaProdotto(prodottoDto);
     }
 
     @DeleteMapping("/elimina/{id}")
-    public String eliminaProdotto(@PathVariable("id") Long id){
+    public String eliminaProdotto(@PathVariable("id") Long id) {
         return prodottoService.eliminaProdotto(id);
     }
 

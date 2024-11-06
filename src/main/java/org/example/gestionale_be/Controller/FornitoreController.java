@@ -5,9 +5,7 @@ import com.google.i18n.phonenumbers.NumberParseException;
 import lombok.Data;
 import org.apache.coyote.BadRequestException;
 import org.example.gestionale_be.Dto.FornitoreDto;
-import org.example.gestionale_be.Dto.ProdottoDto;
 import org.example.gestionale_be.Service.FornitoreService;
-import org.example.gestionale_be.Service.ProdottoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +17,7 @@ import java.util.List;
 public class FornitoreController {
 
     private final FornitoreService fornitoreService;
+
     @GetMapping("/fornitore/{id}")
     public FornitoreDto recuperaProdotto(@PathVariable("id") Long id) {
         return fornitoreService.getFornitore(id);
@@ -36,7 +35,7 @@ public class FornitoreController {
     }
 
     @DeleteMapping("/elimina-fornitore/{id}")
-    public String eliminaFornitore(@PathVariable("id") Long id){
+    public String eliminaFornitore(@PathVariable("id") Long id) {
         return fornitoreService.eliminaFornitore(id);
     }
 

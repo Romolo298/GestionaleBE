@@ -2,9 +2,7 @@ package org.example.gestionale_be.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Generated;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity(name = "prodotti_storico")

@@ -7,12 +7,14 @@
 
 
     <changeSet id="041120241600" author="Bellapianta.a">
-        <addForeignKeyConstraint baseTableName="prodotti" baseColumnNames="id_fornitore" constraintName="fk_id_fornitore_id" referencedTableName="fornitori"
+        <addForeignKeyConstraint baseTableName="prodotti" baseColumnNames="id_fornitore"
+                                 constraintName="fk_id_fornitore_id" referencedTableName="fornitori"
                                  referencedColumnNames="id"/>
     </changeSet>
 
     <changeSet id="051120241052" author="Bellapianta.a">
-        <addForeignKeyConstraint baseTableName="prodotti_storico" baseColumnNames="id_fornitore" constraintName="fk_id_storico_fornitore_id" referencedTableName="fornitori"
+        <addForeignKeyConstraint baseTableName="prodotti_storico" baseColumnNames="id_fornitore"
+                                 constraintName="fk_id_storico_fornitore_id" referencedTableName="fornitori"
                                  referencedColumnNames="id"/>
     </changeSet>
 

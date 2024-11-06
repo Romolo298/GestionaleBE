@@ -5,11 +5,11 @@ import org.example.gestionale_be.Entity.Prodotto;
 import org.mapstruct.Mapper;
 
 
-@Mapper(componentModel = "spring",uses = ProdottoMapper.class)
+@Mapper(componentModel = "spring", uses = ProdottoMapper.class)
 public interface ProdottoMapper {
 
 
-    Prodotto dtoToEntity (ProdottoDto prodottoDto);
+    Prodotto dtoToEntity(ProdottoDto prodottoDto);
 
-    ProdottoDto entityToDto (Prodotto prodotto);
+    ProdottoDto entityToDto(Prodotto prodotto);
 }

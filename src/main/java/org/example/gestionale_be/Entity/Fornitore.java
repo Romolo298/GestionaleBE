@@ -1,7 +1,6 @@
 package org.example.gestionale_be.Entity;
 
 
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import jakarta.persistence.*;
 import lombok.Data;
 

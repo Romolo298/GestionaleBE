@@ -1,16 +1,14 @@
 package org.example.gestionale_be.Service;
 
-import com.google.i18n.phonenumbers.Phonenumber.*;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import lombok.Data;
 import org.apache.coyote.BadRequestException;
 import org.example.gestionale_be.Dto.FornitoreDto;
-
 import org.example.gestionale_be.Eccezioni.NotFoundException;
-
 import org.example.gestionale_be.Mapper.FornitoreMapper;
-
 import org.example.gestionale_be.Repository.FornitoreRepository;
-import com.google.i18n.phonenumbers.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,7 +42,7 @@ public class FornitoreService {
         if (fornitoreDto.getNumeroTelefono() != null && !controlloNumeroTelefono(fornitoreDto.getNumeroTelefono())) {
             throw new IllegalArgumentException("Numero di telefono non formattato correttamente");
         }
-        
+
         return fornitoreMapper.entityToDto(fornitoreRepository.save(fornitoreMapper.dtoToEntity(fornitoreDto)));
     }
 
@@ -56,20 +54,19 @@ public class FornitoreService {
 
 
     public FornitoreDto inserisciModificaFornitore(FornitoreDto fornitoreDto) throws NumberParseException, BadRequestException {
-        if(fornitoreRepository.existsByRagioneSociale(fornitoreDto.getRagioneSociale()))
+        if (fornitoreRepository.existsByRagioneSociale(fornitoreDto.getRagioneSociale()))
             return fornitoreMapper.entityToDto(fornitoreRepository.findByRagioneSociale(fornitoreDto.getRagioneSociale()));
         else
             return inserisciFornitore(fornitoreDto);
     }
 
     public String eliminaFornitore(Long id) {
-        if(fornitoreRepository.existsById(id)) {
+        if (fornitoreRepository.existsById(id)) {
             fornitoreRepository.deleteById(id);
             return "Prodotto eliminato";
         }
-        return  "Nessun prodotto eliminato in quanto non presente";
+        return "Nessun prodotto eliminato in quanto non presente";
     }
-
 
 
 }

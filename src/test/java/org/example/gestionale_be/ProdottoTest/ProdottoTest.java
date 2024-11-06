@@ -2,16 +2,13 @@ package org.example.gestionale_be.ProdottoTest;
 
 
 import org.example.gestionale_be.Dto.ProdottoDto;
-
 import org.example.gestionale_be.GestionaleBeApplicationTests;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -73,12 +70,12 @@ public class ProdottoTest extends GestionaleBeApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectToJsonString(fillObject(new ProdottoDto())));
 
-        var x =mockMvc.perform(creazione)
+        var x = mockMvc.perform(creazione)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
 
-        mockMvc.perform(post(URL_PRODOTTO+ "/inserisci-modifica")
+        mockMvc.perform(post(URL_PRODOTTO + "/inserisci-modifica")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(x)).
                 andExpect(status().isBadRequest());
@@ -92,12 +89,12 @@ public class ProdottoTest extends GestionaleBeApplicationTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectToJsonString(fillObject(new ProdottoDto())));
 
-        var x =mockMvc.perform(creazione)
+        var x = mockMvc.perform(creazione)
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
 
-        mockMvc.perform(post(URL_PRODOTTO+ "/inserisci-modifica")
+        mockMvc.perform(post(URL_PRODOTTO + "/inserisci-modifica")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(rimuoviIdDaJson(x))).
                 andExpect(status().isOk());

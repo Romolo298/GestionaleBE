@@ -7,9 +7,9 @@
 
 
     <changeSet id="011120242200" author="Bellapianta.a">
-       <createSequence
-               sequenceName="sequence_gestionale"
-               startValue="1"
-               incrementBy="50"/>
+        <createSequence
+                sequenceName="sequence_gestionale"
+                startValue="1"
+                incrementBy="50"/>
     </changeSet>
 </databaseChangeLog>

@@ -40,24 +40,23 @@ public class ProdottoService {
 
     @Transactional
     public ProdottoDto inserisciProdotto(ProdottoDto prodottoDto) throws NumberParseException, BadRequestException {
-        if(!prodottoRepository.existsByCodiceProdotto(prodottoDto.getCodiceProdotto())) {
+        if (!prodottoRepository.existsByCodiceProdotto(prodottoDto.getCodiceProdotto())) {
             prodottoDto.setDataCreazione(LocalDate.now());
 
-           if (prodottoDto.getFornitore()!=null)
+            if (prodottoDto.getFornitore() != null)
                 inserimentoModificaFornitore(prodottoDto);
 
             return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
-        }
-        else {
+        } else {
             Prodotto prodotto = prodottoRepository.findByCodiceProdotto(prodottoDto.getCodiceProdotto());
-            prodottoStoricoService.inserimentoStorico(prodotto,prodottoDto);
+            prodottoStoricoService.inserimentoStorico(prodotto, prodottoDto);
             prodottoDto.setId(prodotto.getId());
-            if(prodottoDto.getQuantitativo()!=null)
+            if (prodottoDto.getQuantitativo() != null)
                 prodottoDto.setQuantitativo(prodottoDto.getQuantitativo() + prodotto.getQuantitativo());
             prodottoDto.setDataCreazione(prodotto.getDataCreazione());
             prodottoDto.setDataModifica(LocalDate.now());
 
-            if(prodottoDto.getFornitore()!=null)
+            if (prodottoDto.getFornitore() != null)
                 inserimentoModificaFornitore(prodottoDto);
 
             return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
@@ -66,7 +65,7 @@ public class ProdottoService {
 
     public ProdottoDto modificaProdotto(ProdottoDto prodottoDto) {
 
-        if(prodottoRepository.existsById(prodottoDto.getId()))
+        if (prodottoRepository.existsById(prodottoDto.getId()))
             return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
         else
             throw new NotFoundException("Prodotto non trovato");
@@ -74,11 +73,11 @@ public class ProdottoService {
     }
 
     public String eliminaProdotto(Long id) {
-        if(prodottoRepository.existsById(id)) {
+        if (prodottoRepository.existsById(id)) {
             prodottoRepository.deleteById(id);
             return "Prodotto eliminato";
         }
-        return  "Nessun prodotto eliminato in quanto non presente";
+        return "Nessun prodotto eliminato in quanto non presente";
     }
 
     private void inserimentoModificaFornitore(ProdottoDto prodottoDto) throws NumberParseException, BadRequestException {

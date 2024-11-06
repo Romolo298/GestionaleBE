@@ -20,14 +20,13 @@
             <column name="prezzo_listino" type="float"/>
             <column name="quantitativo" type="bigint"/>
             <column name="id_fornitore" type="bigint"/>
-            <column name ="data_creazione" type="Date"/>
+            <column name="data_creazione" type="Date"/>
         </createTable>
     </changeSet>
 
     <changeSet id="051120241353" author="Bellapianta.a">
         <modifyDataType tableName="prodotti_storico" columnName="data_creazione" newDataType="DateTime"/>
     </changeSet>
-
 
 
 </databaseChangeLog>

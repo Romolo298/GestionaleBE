@@ -1,10 +1,8 @@
 package org.example.gestionale_be.Dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 
