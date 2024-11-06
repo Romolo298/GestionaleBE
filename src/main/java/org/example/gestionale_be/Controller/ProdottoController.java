@@ -13,23 +13,23 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/prodotto")
 @Data
 @CrossOrigin("*")
 public class ProdottoController {
 
     private final ProdottoService prodottoService;
-    @GetMapping("/prodotto/{id}")
+    @GetMapping("/{id}")
     public ProdottoDto recuperaProdotto(@PathVariable("id") Long id) {
         return prodottoService.getProdotto(id);
     }
 
-    @GetMapping("/prodotto")
+    @GetMapping()
     public List<ProdottoDto> recuperProdotti() {
         return prodottoService.getProdotti();
     }
 
-    @PostMapping("/inserisci-modifica/prodotto")
+    @PostMapping("/inserisci-modifica")
     public ProdottoDto inserisciProdotto(@Valid @RequestBody ProdottoDto prodottoDto) throws BadRequestException, NumberParseException {
         if(prodottoDto.getId()!=null)
             throw new BadRequestException("Non puoi inserire questo prodotto, id PRESENTE");
@@ -43,7 +43,7 @@ public class ProdottoController {
         return prodottoService.modificaProdotto(prodottoDto);
     }
 
-    @DeleteMapping("/elimina-prodotto/{id}")
+    @DeleteMapping("/elimina/{id}")
     public String eliminaProdotto(@PathVariable("id") Long id){
         return prodottoService.eliminaProdotto(id);
     }

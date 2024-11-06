@@ -25,6 +25,8 @@ public class ProdottoService {
 
     private final FornitoreService fornitoreService;
 
+    private final ProdottoStoricoService prodottoStoricoService;
+
     public ProdottoDto getProdotto(Long id) {
         return prodottoRepository.findById(id)
                 .map(prodottoMapper::entityToDto)
@@ -41,19 +43,21 @@ public class ProdottoService {
         if(!prodottoRepository.existsByCodiceProdotto(prodottoDto.getCodiceProdotto())) {
             prodottoDto.setDataCreazione(LocalDate.now());
 
-           if (prodottoDto.getFornitoreDto()!=null)
+           if (prodottoDto.getFornitore()!=null)
                 inserimentoModificaFornitore(prodottoDto);
 
             return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
         }
         else {
             Prodotto prodotto = prodottoRepository.findByCodiceProdotto(prodottoDto.getCodiceProdotto());
+            prodottoStoricoService.inserimentoStorico(prodotto,prodottoDto);
             prodottoDto.setId(prodotto.getId());
-            prodottoDto.setQuantitativo(prodottoDto.getQuantitativo() + prodotto.getQuantitativo());
+            if(prodottoDto.getQuantitativo()!=null)
+                prodottoDto.setQuantitativo(prodottoDto.getQuantitativo() + prodotto.getQuantitativo());
             prodottoDto.setDataCreazione(prodotto.getDataCreazione());
             prodottoDto.setDataModifica(LocalDate.now());
 
-            if(prodottoDto.getFornitoreDto()!=null)
+            if(prodottoDto.getFornitore()!=null)
                 inserimentoModificaFornitore(prodottoDto);
 
             return prodottoMapper.entityToDto(prodottoRepository.save(prodottoMapper.dtoToEntity(prodottoDto)));
@@ -78,6 +82,6 @@ public class ProdottoService {
     }
 
     private void inserimentoModificaFornitore(ProdottoDto prodottoDto) throws NumberParseException, BadRequestException {
-        prodottoDto.setFornitoreDto(fornitoreService.inserisciModificaFornitore(prodottoDto.getFornitoreDto()));
+        prodottoDto.setFornitore(fornitoreService.inserisciModificaFornitore(prodottoDto.getFornitore()));
     }
 }

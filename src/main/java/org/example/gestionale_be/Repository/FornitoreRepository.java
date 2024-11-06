@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FornitoreRepository extends JpaRepository<Fornitore, Long> {
     Boolean existsByRagioneSociale(String ragioneSociale);
+    Fornitore findByRagioneSociale(String ragioneSociale);
 }

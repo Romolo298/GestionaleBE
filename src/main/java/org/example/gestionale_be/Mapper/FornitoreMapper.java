@@ -3,7 +3,7 @@ package org.example.gestionale_be.Mapper;
 import org.example.gestionale_be.Dto.FornitoreDto;
 import org.example.gestionale_be.Entity.Fornitore;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
 
 @Mapper(componentModel = "spring")
 public interface FornitoreMapper {

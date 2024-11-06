@@ -44,7 +44,7 @@ public class FornitoreService {
         if (fornitoreDto.getNumeroTelefono() != null && !controlloNumeroTelefono(fornitoreDto.getNumeroTelefono())) {
             throw new IllegalArgumentException("Numero di telefono non formattato correttamente");
         }
-
+        
         return fornitoreMapper.entityToDto(fornitoreRepository.save(fornitoreMapper.dtoToEntity(fornitoreDto)));
     }
 
@@ -56,8 +56,8 @@ public class FornitoreService {
 
 
     public FornitoreDto inserisciModificaFornitore(FornitoreDto fornitoreDto) throws NumberParseException, BadRequestException {
-        if(fornitoreDto.getId()!= null && fornitoreRepository.existsById(fornitoreDto.getId()))
-            return fornitoreMapper.entityToDto(fornitoreRepository.save(fornitoreMapper.dtoToEntity(fornitoreDto)));
+        if(fornitoreRepository.existsByRagioneSociale(fornitoreDto.getRagioneSociale()))
+            return fornitoreMapper.entityToDto(fornitoreRepository.findByRagioneSociale(fornitoreDto.getRagioneSociale()));
         else
             return inserisciFornitore(fornitoreDto);
     }
